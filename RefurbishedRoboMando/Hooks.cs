@@ -26,7 +26,11 @@ namespace RefurbishedRoboMando
             if (NetworkServer.active && self.inventory)
             {
                 ModelLocator modelComponent = self.GetComponent<ModelLocator>();
-                ReplaceCurrentSkin skinLogic = modelComponent ? modelComponent.modelTransform.gameObject.GetComponent<ReplaceCurrentSkin>() : null;
+                if (!modelComponent || !modelComponent.modelTransform) return;
+
+                ReplaceCurrentSkin skinLogic = modelComponent.modelTransform.gameObject.GetComponent<ReplaceCurrentSkin>();
+                if (!skinLogic) return;
+
                 if (skinLogic)
                 {
                     int itemCount = self.inventory.GetItemCount(DLC1Content.Items.BearVoid);
